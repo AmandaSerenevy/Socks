@@ -1,0 +1,80 @@
+#:kivy 1.0
+#:import kivy kivy
+#:import win kivy.core.window
+
+FloatLayout:
+    gameboard: gameboard
+    show_set_button: show_set_button
+    deck_image: deck_image
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            source: 'data/images/background.jpg'
+            size: self.size
+
+    BoxLayout:
+        spacing: 10
+        size_hint: .2, .185
+        pos_hint: {'x': .4, 'y': .75}
+        Image:
+            id: deck_image
+            source: '6_socks_back.png'
+            on_touch_down: self.collide_point(*args[1].pos) and root.gameboard.deal()
+
+    BoxLayout:
+        spacing: 10
+        size_hint: .4, .05
+        pos_hint: {'x': .3, 'y': .05}
+        Button:
+            text: 'Add player'
+            on_press: root.app.add_player()
+        Widget:
+            size_hint: .1,1
+        Button:
+            id: show_set_button
+            text: 'Show a set'
+            on_press: root.app.show_set()
+
+
+    Gameboard:
+        id: gameboard
+        spacing: 10
+        size_hint: .8, .55
+        pos_hint: {'x': .1, 'y': .15}
+        rows: 3
+
+#<Card>:
+#   color: (0, 0, 1, 1)
+<PlayerPad>:
+    no_set_button: no_set_button
+    size_hint: None, None
+    size: 200, 100
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        size: root.size
+        Label:
+            font_size: self.height/3
+            text: 'Score: ' + str(root.score)
+        BoxLayout:
+            size_hint: 1, .3
+            Widget:
+                size_hint: .1, 1
+            Button:
+                size_hint: .35, 1
+                font_size: self.height/2
+                text: 'Claim'
+                on_press: root.app.claim(root)
+            Widget:
+                size_hint: .1, 1
+            Button:
+                id: no_set_button
+                size_hint: .35, 1
+                font_size: self.height/2
+                text: 'No Sets'
+                on_press: root.app.claim_no_sets(root)
+            Widget:
+                size_hint: .1, 1
+        BoxLayout:
+            size_hint: 1, .05
