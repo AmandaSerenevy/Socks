@@ -173,7 +173,7 @@ class SocksApp(App):
         for filename in glob(join(curdir, 'images', '*')):
             try:
                 self.gameboard.deck.append(filename)
-            except Exception, e:
+            except Exception as e:
                 Logger.exception('Card: Unable to load <%s>' % filename)
         self.gameboard.setup()
 
