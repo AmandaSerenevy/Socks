@@ -57,7 +57,7 @@ class Card(F.Image):
             Animation(color=[1,1,1,1],d=.2).start(self)
 
     def get_binary(self):
-        match=re.match(r'images/([01]+)\.gif',self.source)
+        match=re.search(r'images/([01]+)\.gif',self.source)
         if match:
             binary_string=match.group(1)
             binary_rep=int(binary_string,2)
